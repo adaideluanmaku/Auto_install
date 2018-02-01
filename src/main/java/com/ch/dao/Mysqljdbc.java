@@ -19,9 +19,9 @@ import net.sf.json.JSONObject;
 public class Mysqljdbc {
 
 	public Connection getConn(String mysqlip,String mysqlname,String mysqlpassword,String basename) throws ClassNotFoundException, SQLException, IOException{
-		InputStream in=Mysqljdbc.class.getClassLoader().getResourceAsStream("config.properties");
-		Properties prop=new Properties();		
-		prop.load(in);
+//		InputStream in=Mysqljdbc.class.getClassLoader().getResourceAsStream("config.properties");
+//		Properties prop=new Properties();		
+//		prop.load(in);
 		String url="jdbc:mysql://"+mysqlip.trim()+":3306/"+basename.trim();
 		String username=mysqlname.trim();
 		String password=mysqlpassword.trim();

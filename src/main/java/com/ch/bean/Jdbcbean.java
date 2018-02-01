@@ -93,7 +93,7 @@ public class Jdbcbean {
 		try{
 			conn=mysqljdbc.getConn(mysqlurl,mysqlname,mysqlpassword,basename);
 		}catch(Exception e){
-			System.out.println("数据库连接失败，请检查数据库参数");
+			System.out.println("数据库连接失败，请检查数据库参数"+e);
 			return;
 		}
 		Statement st=null;
@@ -354,7 +354,7 @@ public class Jdbcbean {
 		try{
 			conn=mysqljdbc.getConn(mysqlurl,mysqlname,mysqlpassword,basename);
 		}catch(Exception e){
-			System.out.println("数据库连接失败，请检查数据库参数");
+			System.out.println("数据库连接失败，请检查数据库参数"+e);
 			return;
 		}
 		Statement st=null;
@@ -427,6 +427,7 @@ public class Jdbcbean {
 			}
 		}
 		
+		int status = 0;
 		while (createsql.size() != 0) {
 			for (int i1 = 0; i1 < createsql.size(); i1++) {
 				String obj[]=createsql.get(i1).toString().split(";");
@@ -440,12 +441,16 @@ public class Jdbcbean {
 					st = conn.createStatement();
 					st.execute(sql);
 	    		}catch(Exception e){
-	    			System.out.println("视图执行失败保护");
+	    			System.out.println("视图执行失败保护"+sql);
 	    			continue;
 	    		}
 				
 				createsql.remove(i1);
 				i1=i1-1;
+			}
+			status++;
+			if(status>100){
+				return;
 			}
 		}
         st.close();
